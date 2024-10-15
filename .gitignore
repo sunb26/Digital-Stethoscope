@@ -1,0 +1,6 @@
+# Ignore user-specific files
+*.xcuserdata
+*.DS_Store
+
+# Ignore build artifacts
+build/
