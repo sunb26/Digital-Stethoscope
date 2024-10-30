@@ -68,6 +68,7 @@ struct LoginView: View {
             .padding()
             .navigationDestination(isPresented: $isLoggedIn) {
                 MainTabView()
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }
