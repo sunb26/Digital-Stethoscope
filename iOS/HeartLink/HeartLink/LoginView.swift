@@ -42,9 +42,9 @@ struct LoginView: View {
                     
                     Button(action: {
                         if userId.isEmpty || password.isEmpty {
-                            print("Please enter a username and password")
+                            print("Please enter a user and password")
                         } else {
-                            print("Hello!")
+                            self.isLoggedIn = true
                         }
                     }) {
                         Text("Login")
@@ -66,7 +66,9 @@ struct LoginView: View {
                 .padding(.horizontal, 15)
             }
             .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationDestination(isPresented: $isLoggedIn) {
+                MainTabView()
+            }
         }
     }
 }
