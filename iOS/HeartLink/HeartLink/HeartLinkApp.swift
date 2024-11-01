@@ -11,7 +11,7 @@ import SwiftUI
 struct HeartLinkApp: App {
     var body: some Scene {
         WindowGroup {
-            MainNavView()
+            MainNavView().environment(\.colorScheme, .light)
         }
     }
 }
