@@ -15,7 +15,6 @@ struct MainNavView: View {
     var body: some View {
         NavigationStack (path: $path) {
             TabView {
-                // Pass the path binding to HomeView
                 Tab("Home", systemImage: "house.fill") {
                     HomeView(path: $path, bluetoothManager: btmanager)
                 }

@@ -43,7 +43,6 @@ struct HomeView: View {
                     .frame(maxWidth: 300, alignment: .leading)
                     
                     Button(action: {
-//                        path.append(PageActions.bt)
                         self.btPopUp = true
                     }) {
                         Image("bluetooth")
@@ -108,8 +107,5 @@ struct HomeView: View {
 
 
 #Preview {
-//    @Previewable
-//    @State var path: [PageActions] = []
-//    HomeView(path: $path)
     MainNavView().environment(\.colorScheme, .light)
 }
