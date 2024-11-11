@@ -10,14 +10,14 @@ import SwiftUI
 
 struct MainNavView: View {
     @State var path: [PageActions] = [.login]
-//    @Binding var path: [PageActions]
+    @StateObject var btmanager = BluetoothManager()
     
     var body: some View {
         NavigationStack (path: $path) {
             TabView {
                 // Pass the path binding to HomeView
                 Tab("Home", systemImage: "house.fill") {
-                    HomeView(path: $path)
+                    HomeView(path: $path, bluetoothManager: btmanager)
                 }
                 Tab("Record", systemImage: "record.circle.fill") {
                     RecordingView()
@@ -31,8 +31,6 @@ struct MainNavView: View {
                 case .login:
                     LoginView(path: $path)
                         .navigationBarBackButtonHidden(true)
-                case .bt:
-                    BluetoothView()
                 }
             }
         }

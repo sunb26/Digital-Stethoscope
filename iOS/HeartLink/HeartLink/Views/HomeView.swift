@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-// Define the Data Model
-struct Recording: Identifiable {
-    let id = UUID()
-    let title: String
-    let date: String
-    let duration: String
-}
 
 // Sample Data
 let recordings = [
@@ -26,15 +19,16 @@ let recordings = [
 // Page actions for navigation
 enum PageActions: Hashable {
     case login
-    case bt
 }
 
 struct HomeView: View {
-//    @State var path: [PageActions] = [.login]
     @Binding var path: [PageActions]
+    @State var btPopUp: Bool = false
+    @ObservedObject var bluetoothManager: BluetoothManager
     
     var body: some View {
-//        NavigationStack(path: $path) {
+        ZStack {
+            Color.white.ignoresSafeArea(.all)
             VStack {
                 HStack {
                     Button(action: {
@@ -49,7 +43,8 @@ struct HomeView: View {
                     .frame(maxWidth: 300, alignment: .leading)
                     
                     Button(action: {
-                        path.append(PageActions.bt)
+//                        path.append(PageActions.bt)
+                        self.btPopUp = true
                     }) {
                         Image("bluetooth")
                             .resizable()
@@ -104,10 +99,17 @@ struct HomeView: View {
                 }
             }
         }
+        .sheet(isPresented: $btPopUp) {
+            BluetoothView(bluetoothManager: bluetoothManager)
+        }
+        .preferredColorScheme(.light)
     }
+}
+
 
 #Preview {
-    @Previewable
-    @State var path: [PageActions] = []
-    HomeView(path: $path)
+//    @Previewable
+//    @State var path: [PageActions] = []
+//    HomeView(path: $path)
+    MainNavView().environment(\.colorScheme, .light)
 }
