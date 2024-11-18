@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.3.1 (2024-11-18)
+- updated recording page to add countdown feature 
+
 ## v0.3.0 (2024-10-31)
 - added homepage
 - added recording page
