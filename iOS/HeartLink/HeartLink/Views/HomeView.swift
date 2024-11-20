@@ -25,6 +25,7 @@ struct HomeView: View {
     @Binding var path: [PageActions]
     @State var btPopUp: Bool = false
     @ObservedObject var bluetoothManager: BluetoothManager
+    @State private var navigateToBTOutput: Bool = false // TEMP
     
     var body: some View {
         ZStack {
@@ -33,12 +34,17 @@ struct HomeView: View {
                 HStack {
                     Button(action: {
                         // Navigate to profile sidebar
+                        navigateToBTOutput = true // TEMPORARY
                     }) {
                         Image(systemName: "person.circle")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 30, height: 30)
                             .foregroundColor(.black)
+                        
+                            .navigationDestination(isPresented: $navigateToBTOutput) { // TEMP
+                                BluetoothOutput()
+                            }
                     }
                     .frame(maxWidth: 300, alignment: .leading)
                     
