@@ -33,22 +33,26 @@
 		B5D84AD12CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
 				Views/MainNavView.swift,
 				Views/RecordingView.swift,
+				Views/TestView.swift,
 			);
 			target = B57D2F2D2CBE0F310015B61F /* HeartLinkTests */;
 		};
 		B5D84AD22CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
 				Views/MainNavView.swift,
 				Views/RecordingView.swift,
+				Views/TestView.swift,
 			);
 			target = B57D2F372CBE0F310015B61F /* HeartLinkUITests */;
 		};
