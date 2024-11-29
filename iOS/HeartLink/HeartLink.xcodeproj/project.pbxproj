@@ -38,8 +38,8 @@
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
 				Views/MainNavView.swift,
+				Views/PlaybackView.swift,
 				Views/RecordingView.swift,
-				Views/TestView.swift,
 			);
 			target = B57D2F2D2CBE0F310015B61F /* HeartLinkTests */;
 		};
@@ -51,8 +51,8 @@
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
 				Views/MainNavView.swift,
+				Views/PlaybackView.swift,
 				Views/RecordingView.swift,
-				Views/TestView.swift,
 			);
 			target = B57D2F372CBE0F310015B61F /* HeartLinkUITests */;
 		};

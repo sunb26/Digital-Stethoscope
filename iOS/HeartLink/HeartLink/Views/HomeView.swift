@@ -25,6 +25,7 @@ struct HomeView: View {
     @Binding var path: [PageActions]
     @State var btPopUp: Bool = false
     @ObservedObject var bluetoothManager: BluetoothManager
+    @State private var navigateToPlaybackView: Bool = false
     
     var body: some View {
         ZStack {
@@ -85,12 +86,21 @@ struct HomeView: View {
                                 }
                             }
                             Spacer()
-                            Button(action: {
-                                // Add playback function here
+                            NavigationLink(destination: PlaybackView()){
+                                // Image(systemName: "play.circle")
+                                //    .foregroundColor(.black)
+                                    
+                                // Within this (when press button) need to call IP address
+                            }
+                            /*Button(action: { // navigate to recording playback page
+                                navigateToPlaybackView = true
                             }) {
                                 Image(systemName: "play.circle")
                                     .foregroundColor(.black)
-                            }
+                                    .navigationDestination(isPresented: $navigateToPlaybackView){
+                                        PlaybackView()
+                                    }
+                            }*/
                             .frame(width: 34)
                         }
                     }
