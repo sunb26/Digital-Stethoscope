@@ -45,7 +45,7 @@ struct PlaybackView: View {
             
             Button(action: {
                 // play file with specified file name from files -> downloads -> filename.wav
-                playWavFile()
+                //playWavFile()
                 self.show.toggle()
             })
             {
@@ -56,9 +56,9 @@ struct PlaybackView: View {
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .bottom)
             }
-            //.sheet(isPresented: $show) {
-              //  DocumentPicker()
-            //}
+            .sheet(isPresented: $show) {
+                DocumentPicker()
+            }
             Text(" ") // taking up white space
                 .font(.system(size: 42, weight: .bold))
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -73,6 +73,16 @@ struct PlaybackView: View {
             return
         }*/
         let downloadsPath = URL.downloadsDirectory
+        /*let accessing = wavFilePath.startAccessingSecurityScopedResource()
+        defer {
+            if accessing {
+                print("before")
+                wavFilePath.stopAccessingSecurityScopedResource()
+                print("after")
+            }
+        }*/
+        
+        
         
         do {
             let items = try FileManager.default.contentsOfDirectory(at: downloadsPath, includingPropertiesForKeys: nil)
@@ -117,18 +127,52 @@ struct PlaybackView: View {
 //}
 
 struct DocumentPicker: UIViewControllerRepresentable {
+    var audioPlayer: AVAudioPlayer?
+    
+    func makeCoordinator() -> DocumentPicker.Coordinator {
+        return DocumentPicker.Coordinator(parent1: self)
+    }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPicker>) -> UIDocumentPickerViewController {
         
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.wav])
         picker.allowsMultipleSelection = false
-        //picker.directoryURL?.startAccessingSecurityScopedResource()
+        picker.delegate = context.coordinator
+        //let vari = picker.directoryURL
+        //print("variable: \(vari)")
         return picker
     }
     
     func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: UIViewControllerRepresentableContext<DocumentPicker>) {
         
     }
+    
+    class Coordinator : NSObject, UIDocumentPickerDelegate {
+        var audioPlayer: AVAudioPlayer?
+        var parent : DocumentPicker
+        
+        init(parent1 : DocumentPicker) {
+            parent = parent1
+        }
+        
+        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            print("Within documentPicker")
+            print(urls)
+            
+            print("File Path: \(urls.first!.path)")
+            let accessing = urls.first!.startAccessingSecurityScopedResource()
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: urls.first!)
+                audioPlayer?.play()
+            } catch {
+                print("Error when playing audio file: \(error)")
+            }
+            do { urls.first!.stopAccessingSecurityScopedResource()
+            }
+        }
+    }
+    
+    
 }
 
 
