@@ -10,10 +10,10 @@ import SwiftUI
 
 // Sample Data
 let recordings = [
-    Recording(title: "Recording 1", date: "Today", duration: "23 min"),
-    Recording(title: "Recording 2", date: "Today", duration: "23 min"),
-    Recording(title: "Recording 3", date: "Today", duration: "23 min"),
-    Recording(title: "Recording 4", date: "Today", duration: "23 min")
+    Recording(title: "Recording 1", date: "01/01/2024", duration: "15 secs"),
+    Recording(title: "Recording 2", date: "01/01/2024", duration: "15 secs"),
+    Recording(title: "Recording 3", date: "01/01/2024", duration: "15 secs"),
+    Recording(title: "Recording 4", date: "Today", duration: "15 secs")
 ]
 
 // Page actions for navigation

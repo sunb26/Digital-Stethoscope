@@ -11,7 +11,7 @@ import MobileCoreServices
 import UniformTypeIdentifiers
 
 struct PlaybackView: View {
-    let url = URL(string: "http:192.168.2.206/heartlink.wav") // hard coding IP address temporarily
+    let url = URL(string: "http:192.168.137.220/heartlink.wav") // hard coding IP address temporarily
     let filename: String = "heartlink.wav" // hard coding .wav file name temporarily
     @State var downloadString: String = "Download File"
     @State var audioPlayer: AVAudioPlayer?
@@ -135,16 +135,16 @@ struct DocumentPicker: UIViewControllerRepresentable {
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPicker>) -> UIDocumentPickerViewController {
         
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.wav])
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.wav], asCopy: true)
         picker.allowsMultipleSelection = false
         picker.delegate = context.coordinator
+//        picker.directoryURL =
         //let vari = picker.directoryURL
         //print("variable: \(vari)")
         return picker
     }
     
     func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: UIViewControllerRepresentableContext<DocumentPicker>) {
-        
     }
     
     class Coordinator : NSObject, UIDocumentPickerDelegate {
@@ -156,20 +156,22 @@ struct DocumentPicker: UIViewControllerRepresentable {
         }
         
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            print("Within documentPicker")
-            print(urls)
+                print("Within documentPicker")
+                print(urls)
+
+                print("File Path: \(urls.first!.path)")
+                _ = urls.first!.startAccessingSecurityScopedResource()
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: urls.first!)
+                    audioPlayer?.play()
+                } catch {
+                    print("Error when playing audio file: \(error)")
+                }
+                do { urls.first!.stopAccessingSecurityScopedResource()
+                }
+            //do some stuff
+            }
             
-            print("File Path: \(urls.first!.path)")
-            let accessing = urls.first!.startAccessingSecurityScopedResource()
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: urls.first!)
-                audioPlayer?.play()
-            } catch {
-                print("Error when playing audio file: \(error)")
-            }
-            do { urls.first!.stopAccessingSecurityScopedResource()
-            }
-        }
     }
     
     
