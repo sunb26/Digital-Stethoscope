@@ -7,14 +7,22 @@
 
 import CoreBluetooth
 
-class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CBPeripheralDelegate {
+let wifiConnectionServiceUUID: CBUUID = CBUUID(string: "5c96e1a0-4022-4310-816f-bcb7245bc802")
+let wifiConnectionCharacteristicUUID: CBUUID = CBUUID(string: "a48ce354-6a1b-429d-aca5-1077627d5a25")
+let recordingServiceUUID: CBUUID = CBUUID(string: "60ec2f71-22f2-4fc4-84f0-f8d3269e10c0")
+let recordingCharacteristicUUID: CBUUID = CBUUID(string: "d5435c8c-392f-4e89-87be-89f9964db0e0")
+
+class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject {
     @Published var isBluetoothEnabled = false
     @Published var discoveredPeripherals = [Peripheral]()
-    @Published var connectedPeripheralUUID: UUID?
+    @Published var mcuPeripheralUUID: UUID?
     @Published var isConnected = false
+    @Published var wifiNetworks = [String]()
     
-    private var centralManager: CBCentralManager!
-    private var connectedPeripheral: CBPeripheral?
+    var centralManager: CBCentralManager!
+    var mcuPeripheral: CBPeripheral?
+    var wifiCredsCharacteristic: CBCharacteristic?
+    var recordingCharacteristic: CBCharacteristic?
 
     override init() {
         super.init()
@@ -25,15 +33,17 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         self.isBluetoothEnabled = central.state == .poweredOn
         if !self.isBluetoothEnabled {
+            print("Bluetooth not enabled")
             self.discoveredPeripherals.removeAll()
         } else {
+            print("Bluetooth: Start Scanning...")
             self.startScanning()
         }
     }
     
     func startScanning() {
         guard centralManager.state == .poweredOn else { return }
-        centralManager.scanForPeripherals(withServices: nil, options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+        centralManager.scanForPeripherals(withServices: [wifiConnectionServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
     }
     
     func stopScanning() {
@@ -46,8 +56,8 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
             return
         }
         
-        self.connectedPeripheralUUID = peripheral.id
-        self.connectedPeripheral = cbPeripheral
+        self.mcuPeripheralUUID = peripheral.id
+        self.mcuPeripheral = cbPeripheral
         cbPeripheral.delegate = self
         centralManager.connect(cbPeripheral, options: nil)
     }
@@ -58,7 +68,6 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
             return
         }
         
-        
         centralManager.cancelPeripheralConnection(cbPeripheral)
 
     }
@@ -66,6 +75,10 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         self.isConnected = true
         self.stopScanning()
+        
+        peripheral.delegate = self
+        peripheral.discoverServices([wifiConnectionServiceUUID])
+        
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -79,7 +92,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
             print("Successfully disconnected from \(peripheral.name ?? "Unknown")")
         }
         self.isConnected = false
-        self.connectedPeripheralUUID = nil
+        self.mcuPeripheralUUID = nil
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
@@ -88,4 +101,50 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject, CB
             self.discoveredPeripherals.append(newPeripheral)
         }
     }
+}
+
+extension BluetoothManager: CBPeripheralDelegate {
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        for service in peripheral.services ?? [] {
+            if service.uuid == wifiConnectionServiceUUID {
+                print("found service for \(wifiConnectionServiceUUID)")
+                peripheral.discoverCharacteristics(nil, for: service)
+            } else if service.uuid == recordingServiceUUID {
+                print("found service for \(recordingServiceUUID)")
+                peripheral.discoverCharacteristics(nil, for: service)
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        for characteristic in service.characteristics ?? [] {
+            if characteristic.uuid == wifiConnectionCharacteristicUUID {
+                wifiCredsCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+            } else if characteristic.uuid == recordingCharacteristic {
+                recordingCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let error {
+            print("error writing to peripheral: \(error)")
+        } else {
+            print("write successful")
+        }
+    }
+    
+//    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+//        if characteristic.uuid == wifiConnectionCharacteristicUUID {
+//            guard let data = characteristic.value else {
+//                print("No data received for \(characteristic.uuid.uuidString)")
+//                return
+//            }
+//            
+ 
+//        }
+//    }
 }
