@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v1.1.0 (2025-01-14)
+- add function to send Wifi Credentials to MCU via BLE
+- add function to trigger start/stop recording via BLE to MCU
+
+## v1.0.0 (2024-12-02)
+- remove BLE audio streaming from MCU
+- add file upload to server (localhost) to MCU
+- add SD card integration to MCU
+
 ## v0.5.0 (2024-11-19)
 - added audio sign .wav constructor feature
 
