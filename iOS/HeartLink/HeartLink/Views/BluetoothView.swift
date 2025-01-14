@@ -11,6 +11,7 @@ struct BluetoothView: View {
     @Environment(\.dismiss) var dismiss // For closing the pop-up
     @ObservedObject var bluetoothManager: BluetoothManager
     @State private var bluetoothEnabled: Bool = false
+    @State private var sendWifiCreds: Bool = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -34,12 +35,16 @@ struct BluetoothView: View {
                             bluetoothManager.disconnect(peripheral: peripheral)
                         } else {
                             bluetoothManager.connect(to: peripheral)
+                            self.sendWifiCreds = true
                         }
                     }) {
-                        if bluetoothManager.connectedPeripheralUUID == peripheral.id && bluetoothManager.isConnected {
+                        if bluetoothManager.mcuPeripheralUUID == peripheral.id && bluetoothManager.isConnected {
                             Text("Connected")
                                 .foregroundColor(.green)
-                        } else if bluetoothManager.connectedPeripheralUUID == peripheral.id && !bluetoothManager.isConnected {
+                                .sheet(isPresented: $sendWifiCreds) {
+                                    SendWifiCreds(bluetoothManager: bluetoothManager)
+                                }
+                        } else if bluetoothManager.mcuPeripheralUUID == peripheral.id && !bluetoothManager.isConnected {
                             Text("Connecting")
                                 .foregroundColor(.red)
                         } else {
@@ -67,7 +72,3 @@ struct BluetoothView: View {
         }
     }
 }
-//    
-//#Preview {
-//    BluetoothView(bluetoothManager: <#T##BluetoothManager#>)
-//}
