@@ -19,7 +19,7 @@ struct MainNavView: View {
                     HomeView(path: $path, bluetoothManager: btmanager)
                 }
                 Tab("Record", systemImage: "record.circle.fill") {
-                    RecordingView()
+                    RecordingView(bluetoothManager: btmanager)
                 }
             }
             .tabViewStyle(.sidebarAdaptable)

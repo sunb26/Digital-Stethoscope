@@ -43,7 +43,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject {
     
     func startScanning() {
         guard centralManager.state == .poweredOn else { return }
-        centralManager.scanForPeripherals(withServices: [wifiConnectionServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
+        centralManager.scanForPeripherals(withServices: [wifiConnectionServiceUUID, recordingServiceUUID], options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
     }
     
     func stopScanning() {
@@ -77,7 +77,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate, ObservableObject {
         self.stopScanning()
         
         peripheral.delegate = self
-        peripheral.discoverServices([wifiConnectionServiceUUID])
+        peripheral.discoverServices([wifiConnectionServiceUUID, recordingServiceUUID])
         
     }
     
@@ -120,9 +120,11 @@ extension BluetoothManager: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics ?? [] {
             if characteristic.uuid == wifiConnectionCharacteristicUUID {
+                print("Found wifi creds characteristic")
                 wifiCredsCharacteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
-            } else if characteristic.uuid == recordingCharacteristic {
+            } else if characteristic.uuid == recordingCharacteristicUUID {
+                print("Found recording characteristic")
                 recordingCharacteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
             }
