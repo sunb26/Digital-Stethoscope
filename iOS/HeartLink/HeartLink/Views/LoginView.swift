@@ -53,18 +53,12 @@ struct LoginView: View {
                         Text("Login")
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.black)
+                            .background(Color.blue)
                             .foregroundColor(.white)
                             .cornerRadius(8)
                             .shadow(color: .gray, radius: 5, x: 0, y: 2)
                     }
                     .padding(.top, 90)
-                    
-                    NavigationLink(destination: ResetPasswordView()) {
-                        Text("Forgot Password?")
-                            .foregroundColor(.gray)
-                    }
-                    .padding(.top, 10)
                 }
                 .padding(.horizontal, 15)
             }
