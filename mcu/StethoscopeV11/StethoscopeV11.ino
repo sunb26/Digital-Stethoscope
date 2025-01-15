@@ -2,11 +2,12 @@
 #include "InitializeSD.h"
 #include "ServerUpload.h"
 #include "i2sMicrophone.h"
+#include "BLEServerSetup.h"
 
 bool firstRun = true;
 
 void setup(void) {
-  
+
   if (firstRun == true){
     DBG_OUTPUT_PORT.begin(115200);
     DBG_OUTPUT_PORT.setDebugOutput(true);
@@ -36,6 +37,8 @@ void setup(void) {
       delay (10);
       }
   }
+
+  setupBLE();
   
   initializeServer(); //try this before if statement
   
