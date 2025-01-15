@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.2.0 (2025-01-14)
+- setup atlasgo for SQL db schema management
+
 ## v1.1.0 (2025-01-14)
 - add function to send Wifi Credentials to MCU via BLE
 - add function to trigger start/stop recording via BLE to MCU
