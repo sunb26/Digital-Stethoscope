@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.3.0 (2025-01-18)
+- set up wifi credentials login uses phone app now
+- start/stop function uses phone app now
+- app login page pulls from an endpoint (still no validation yet)
+- recording page auto stops after 15 seconds
+- TODO (bentomka): MCU issue with repeat recordings
+
 ## v1.2.0 (2025-01-14)
 - setup atlasgo for SQL db schema management
 
