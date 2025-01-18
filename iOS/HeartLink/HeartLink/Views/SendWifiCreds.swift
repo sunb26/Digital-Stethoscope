@@ -44,7 +44,7 @@ struct SendWifiCreds: View {
     
     func sendWifiCreds(network: String, password: String) {
         let nameLength = String(network.count)
-        let data = (nameLength + network + password).data(using: .utf8)!
+        let data = (nameLength + "&" + network + password).data(using: .utf8)!
         guard let char = bluetoothManager.wifiCredsCharacteristic else {
             print("Could not find wifiCredsCharacteristic characteristic")
             return
