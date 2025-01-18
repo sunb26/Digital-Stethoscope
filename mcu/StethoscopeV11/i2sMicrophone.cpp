@@ -1,4 +1,5 @@
 #include "i2sMicrophone.h"
+#include "BLEServiceCallbacks.h"
 
 File file;
 
@@ -14,8 +15,8 @@ void i2sInit() {
         .channel_format = I2S_CHANNEL_FMT_ONLY_LEFT,
         .communication_format = I2S_COMM_FORMAT_I2S,  // Update this line
         .intr_alloc_flags = 0,
-        .dma_buf_count = 64,
-        .dma_buf_len = 1024,
+        .dma_buf_count = 4,
+        .dma_buf_len = 512,
         .use_apll = 1
     };
  
@@ -88,7 +89,7 @@ void i2s_adc(void *arg) {
   Serial.println("*** Recording Start ***");
   digitalWrite(RED_LED_PIN, HIGH);
  
-  while (totalBytesWritten < FLASH_RECORD_SIZE) {
+  while (totalBytesWritten < FLASH_RECORD_SIZE && startStop == "start") { //might be able to add an && in this if statement for stop/start
     i2s_read(I2S_PORT, (void *)i2s_read_buff, I2S_READ_LEN, &bytes_read, portMAX_DELAY);
 //    Serial.print(String((const uint8_t *)i2s_read_buff, bytes_read));
     file.write((const uint8_t *)i2s_read_buff, bytes_read);
@@ -100,6 +101,7 @@ void i2s_adc(void *arg) {
   free(i2s_read_buff);
   free(wav_buffer);
   digitalWrite(RED_LED_PIN, LOW);
+  startStop = "stop";
   Serial.println("*** Recording Complete ***");
   isRecordingComplete = true; // Recording is now complete
   

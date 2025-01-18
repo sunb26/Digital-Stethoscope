@@ -3,6 +3,10 @@
 
 #include <NimBLEDevice.h>
 
+extern const char* ssid;
+extern const char* password;
+extern String startStop;
+
 // Debugging callbacks for server connection
 class ServerConnectionCallbacks: public NimBLEServerCallbacks {
   void onConnect(NimBLEServer* pServer, NimBLEConnInfo& connInfo) override;
@@ -20,6 +24,4 @@ class RecordingCallbacks: public NimBLECharacteristicCallbacks {
 };
 
 #endif
-
-
 

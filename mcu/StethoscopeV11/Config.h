@@ -24,10 +24,8 @@
 
 #define BUTTON_PIN 18
 
-extern const char *ssid;
-extern const char *password;
-extern const char *host;
-
 extern const char filename[];
 
+
 extern bool firstRun;
+

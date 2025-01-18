@@ -1,6 +1,10 @@
 #include "ServerUpload.h"
+#include "BLEServiceCallbacks.h"
 
 File uploadFile;
+
+
+const char *host = "esp32sd";
 
 WebServer server(80);
 
@@ -195,6 +199,7 @@ void handleNotFound() {
   server.send(404, "text/plain", message);
   DBG_OUTPUT_PORT.print(message);
 }
+
 
 void initializeServer(){
     WiFi.mode(WIFI_STA);

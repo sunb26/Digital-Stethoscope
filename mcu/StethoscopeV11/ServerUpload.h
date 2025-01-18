@@ -12,4 +12,7 @@
 
 extern WebServer server;
 
+// extern const char* ssid;
+// extern const char* password;
+
 void initializeServer();
