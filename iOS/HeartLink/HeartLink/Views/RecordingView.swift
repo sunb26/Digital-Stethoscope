@@ -11,8 +11,9 @@ struct RecordingView: View {
     @State var startRecording: Bool = false
     @State var isRecording: Bool = false
     @State var countdown: Int8 = 0
-    @ObservedObject var bluetoothManager: BluetoothManager
+    @State var recordingDuration: Int8 = 15
     @State var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
+    @ObservedObject var bluetoothManager: BluetoothManager
     
     func toggleRecording() {
         let data = (startRecording ? "start" : "stop").data(using: .utf8)!
@@ -37,6 +38,7 @@ struct RecordingView: View {
                         .frame(height: 400, alignment: .top)
                     
                     Button(action: {
+                        recordingDuration = 15
                         if startRecording {
                             startRecording = false
                             countdown = -1
@@ -69,6 +71,15 @@ struct RecordingView: View {
                         countdown -= 1
                         if countdown == 0 {
                             toggleRecording()
+                        }
+                    } else {
+                        recordingDuration -= 1
+                        print(recordingDuration)
+                        if recordingDuration <= 0 {
+                            print("stopping recording...")
+                            startRecording = false
+                            toggleRecording()
+                            recordingDuration = 15
                         }
                     }
                 }
