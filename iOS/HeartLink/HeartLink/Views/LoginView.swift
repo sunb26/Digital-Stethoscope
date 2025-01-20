@@ -13,6 +13,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var patient: User?
     @State private var isLoading: Bool = false
+    @State private var loginFailed: Bool = false
     
     var body: some View {
         ZStack {
@@ -45,7 +46,13 @@ struct LoginView: View {
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                         .padding(.top, 12)
                     
+                    if loginFailed {
+                        Text("Invalid Credentials")
+                            .padding(.top, 10)
+                    }
+                    
                     Button(action: {
+                        loginFailed = false
                         if userId.isEmpty || password.isEmpty {
                             print("Please enter a username and password")
                         } else {
@@ -84,7 +91,6 @@ struct LoginView: View {
         do {
             patient = try await getUser()
             isLoading = false
-            print(patient)
             path.removeLast(path.count)
         } catch LoginError.invalidURL {
             print("LoginError: invalid URL")
@@ -92,6 +98,7 @@ struct LoginView: View {
             print("LoginError: response parsing error")
         } catch LoginError.invalidCredentials {
             print("LoginError: invalid username or password")
+            loginFailed = true
         } catch LoginError.serverError {
             print("LoginError: internal server error")
         } catch LoginError.invalidData {
