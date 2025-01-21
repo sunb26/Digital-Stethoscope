@@ -16,7 +16,7 @@ struct RecordingWidget: Identifiable, Codable {
 struct RecordingData: Codable {
     let id: UInt64
     let date: String
-    let viewStatus: Bool
+    let viewed: Bool
     let comments: String
 }
 

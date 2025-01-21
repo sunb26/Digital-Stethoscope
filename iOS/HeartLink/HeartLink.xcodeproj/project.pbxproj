@@ -35,6 +35,7 @@
 			membershipExceptions = (
 				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
+				ViewModel/DisplayRecording.swift,
 				ViewModel/UserLogin.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
@@ -50,6 +51,7 @@
 			membershipExceptions = (
 				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
+				ViewModel/DisplayRecording.swift,
 				ViewModel/UserLogin.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,

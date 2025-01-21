@@ -7,14 +7,10 @@
 
 import SwiftUI
 
-// Page actions for navigation
-enum PageActions: Hashable {
-    case login
-}
-
 struct HomeView: View {
     @Binding var path: [PageActions]
     @Binding var patient: User
+    @Binding var recordingData: RecordingData
     @State var btPopUp: Bool = false
     @State var recordingPopUp: Bool = false
     @ObservedObject var bluetoothManager: BluetoothManager
@@ -74,7 +70,21 @@ struct HomeView: View {
                             }
                             Spacer()
                             Button(action: {
-                                // Add playback function here
+                                Task {
+                                    do {
+                                        recordingData = try await getRecording(recordingId: recording.id)
+                                        print(recordingData)
+                                        path.append(.recording)
+                                    } catch GetRecordingError.invalidURL {
+                                        print("GetRecordingDataError: invalid URL")
+                                    } catch GetRecordingError.serverError {
+                                        print("GetRecordingDataError: internal server error")
+                                    } catch GetRecordingError.invalidData {
+                                        print("GetRecordingDataError: server returned invalid data")
+                                    } catch {
+                                        print("GetRecordingDataError: An unexpected error occurred")
+                                    }
+                                }
                             }) {
                                 Image(systemName: "chevron.right")
                                     .foregroundColor(.black)
@@ -88,8 +98,6 @@ struct HomeView: View {
         }
         .sheet(isPresented: $btPopUp) {
             BluetoothView(bluetoothManager: bluetoothManager)
-        }
-        .sheet(isPresented: $recordingPopUp) {
         }
         .preferredColorScheme(.light)
     }
