@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.5.0 (2025-01-21)
+- add individual recording data view
+- TODO (Ben Sun): add audio streaming to this view
+
+## 1.4.0 (2025-01-20)
+- remove hardcoded recording history
+- replaced with pulling data from endpoint
+
 ## 1.3.0 (2025-01-18)
 - set up wifi credentials login uses phone app now
 - start/stop function uses phone app now
