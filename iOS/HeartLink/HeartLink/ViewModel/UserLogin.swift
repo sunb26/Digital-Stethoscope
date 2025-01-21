@@ -7,28 +7,25 @@
 
 import Foundation
 
-let endpoint = "https://heartlink.free.beeceptor.com/test"
-
 func getUser() async throws -> User {
-    
-    guard let url = URL(string: endpoint) else {
+    guard let url = URL(string: "https://heartlink.free.beeceptor.com/test") else {
         throw LoginError.invalidURL
     }
-    
+
     let (data, response) = try await URLSession.shared.data(from: url)
-    
+
     guard let response = response as? HTTPURLResponse else {
         throw LoginError.serverError
     }
-    
-    guard response.statusCode == 200  else {
+
+    guard response.statusCode == 200 else {
         if response.statusCode == 404 {
             throw LoginError.invalidCredentials
         } else {
             throw LoginError.invalidResponse
         }
     }
-    
+
     do {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -36,19 +33,4 @@ func getUser() async throws -> User {
     } catch {
         throw LoginError.invalidData
     }
-}
-
-
-struct User: Codable {
-    let email: String
-    let patientId: UInt64
-    let physicianId: UInt64
-}
-
-enum LoginError: Error {
-    case invalidURL
-    case invalidCredentials
-    case invalidResponse
-    case invalidData
-    case serverError
 }
