@@ -7,11 +7,23 @@
 
 import Foundation
 
-
 // Define the Data Model
-struct Recording: Identifiable {
-    let id = UUID()
-    let title: String
+struct RecordingWidget: Identifiable, Codable {
+    let id: UInt64
     let date: String
-    let duration: String
+}
+
+struct RecordingData: Codable {
+    let id: UInt64
+    let date: String
+    let viewStatus: Bool
+    let comments: String
+}
+
+
+enum GetRecordingError: Error {
+    case invalidURL
+    case invalidData
+    case recordNotFound
+    case serverError
 }
