@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B5DFFD062D417BCC00B6D117 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B5DFFD052D417BCC00B6D117 /* FirebaseAnalytics */; };
+		B5DFFD082D417BCC00B6D117 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B5DFFD072D417BCC00B6D117 /* FirebaseFirestore */; };
+		B5DFFD0A2D417BCC00B6D117 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B5DFFD092D417BCC00B6D117 /* FirebaseStorage */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B57D2F2F2CBE0F310015B61F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -62,12 +68,20 @@
 			);
 			target = B57D2F372CBE0F310015B61F /* HeartLinkUITests */;
 		};
+		B5DFFD0C2D4183BA00B6D117 /* Exceptions for "HeartLink" folder in "HeartLink" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B57D2F1D2CBE0F300015B61F /* HeartLink */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B57D2F202CBE0F300015B61F /* HeartLink */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				B5DFFD0C2D4183BA00B6D117 /* Exceptions for "HeartLink" folder in "HeartLink" target */,
 				B5D84AD12CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkTests" target */,
 				B5D84AD22CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkUITests" target */,
 			);
@@ -91,6 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5DFFD062D417BCC00B6D117 /* FirebaseAnalytics in Frameworks */,
+				B5DFFD082D417BCC00B6D117 /* FirebaseFirestore in Frameworks */,
+				B5DFFD0A2D417BCC00B6D117 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +168,9 @@
 			);
 			name = HeartLink;
 			packageProductDependencies = (
+				B5DFFD052D417BCC00B6D117 /* FirebaseAnalytics */,
+				B5DFFD072D417BCC00B6D117 /* FirebaseFirestore */,
+				B5DFFD092D417BCC00B6D117 /* FirebaseStorage */,
 			);
 			productName = HeartLink;
 			productReference = B57D2F1E2CBE0F300015B61F /* HeartLink.app */;
@@ -234,6 +254,9 @@
 			);
 			mainGroup = B57D2F152CBE0F300015B61F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B5DFFD042D417BCC00B6D117 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B57D2F1F2CBE0F300015B61F /* Products */;
 			projectDirPath = "";
@@ -441,6 +464,7 @@
 				DEVELOPMENT_TEAM = V4BVAJHMS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeartLink/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Need to connect to digital stethoscope to begin readings.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Need to connect to digital stethoscope to begin readings.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -474,6 +498,7 @@
 				DEVELOPMENT_TEAM = V4BVAJHMS3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HeartLink/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Need to connect to digital stethoscope to begin readings.";
 				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Need to connect to digital stethoscope to begin readings.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -607,6 +632,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B5DFFD042D417BCC00B6D117 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B5DFFD052D417BCC00B6D117 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5DFFD042D417BCC00B6D117 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		B5DFFD072D417BCC00B6D117 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5DFFD042D417BCC00B6D117 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		B5DFFD092D417BCC00B6D117 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B5DFFD042D417BCC00B6D117 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B57D2F162CBE0F300015B61F /* Project object */;
 }
