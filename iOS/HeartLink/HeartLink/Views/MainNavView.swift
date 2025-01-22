@@ -18,7 +18,7 @@ struct MainNavView: View {
     @State var path: [PageActions] = [.login]
     @StateObject var btmanager = BluetoothManager()
     @State var patient: User = User(email: "", patientId: 0, physicianId: 0, widgets: [])
-    @State var recordingData: RecordingData = RecordingData(id: 0, date: "0000-00-00", viewed: false, comments: "")
+    @State var recordingData: RecordingData = RecordingData(id: 0, date: "0000-00-00", viewed: false, comments: "", fileURL: "")
     
     var body: some View {
         NavigationStack(path: $path) {

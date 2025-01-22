@@ -18,8 +18,8 @@ struct RecordingData: Codable {
     let date: String
     let viewed: Bool
     let comments: String
+    let fileURL: String
 }
-
 
 enum GetRecordingError: Error {
     case invalidURL
