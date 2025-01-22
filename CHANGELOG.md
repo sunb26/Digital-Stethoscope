@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.0 (2025-01-22)
+- install Firebase SDK
+- add audio streaming from Firebase Cloud Storage
+
 ## 1.5.0 (2025-01-21)
 - add individual recording data view
 - TODO (Ben Sun): add audio streaming to this view
