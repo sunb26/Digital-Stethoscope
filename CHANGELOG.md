@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.6.1 (2025-01-22)
+- fix bug where audio was not played if phone ringer was off
+
 ## 1.6.0 (2025-01-22)
 - install Firebase SDK
 - add audio streaming from Firebase Cloud Storage

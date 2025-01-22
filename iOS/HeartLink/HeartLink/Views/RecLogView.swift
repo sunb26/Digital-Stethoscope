@@ -63,7 +63,14 @@ struct RecLogView: View {
                 if error != nil {
                     print("display recording data: \(String(describing: error))")
                 } else {
-                    player = AVPlayer(playerItem: AVPlayerItem(url: url!))
+                    do {
+                        try
+                            // Playback even with notifications silenced
+                            AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+                    } catch {
+                        print("display recording data: \(String(describing: error))")
+                    }
+                    player = AVPlayer(url: url!)
                 }
             }
         }
