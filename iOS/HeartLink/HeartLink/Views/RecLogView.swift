@@ -43,7 +43,6 @@ struct RecLogView: View {
                                         .multilineTextAlignment(.leading)
                                         .font(.system(size: 20))
                                 }
-                                    
                             }
                             .padding(.top, 25)
                         }
@@ -79,6 +78,7 @@ struct RecLogView: View {
             }
         }
         .onAppear(perform: setupPlayer)
+        .onDisappear(perform: cleanup)
     }
 
     func setupPlayer() {
@@ -150,6 +150,12 @@ struct RecLogView: View {
         let minutes = Int(time) / 60
         let seconds = Int(time) % 60
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+
+    func cleanup() {
+        player.pause()
+        stopTimer()
+        isPlaying = false
     }
 }
 

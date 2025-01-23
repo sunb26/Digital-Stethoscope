@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.7.1 (2025-01-22)
+- fix bug where audio continues to play if not paused before returning to homepage
+
 ## 1.7.0 (2025-01-22)
 - add audio track seeking
 
