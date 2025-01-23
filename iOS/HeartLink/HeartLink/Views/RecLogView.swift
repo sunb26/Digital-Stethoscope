@@ -38,10 +38,12 @@ struct RecLogView: View {
                                 Text("Comments: ")
                                     .font(.title2)
                                     .bold()
-                                Text(recording.comments)
-                                    .multilineTextAlignment(.leading)
-                                    .font(.system(size: 20))
-                                    .scrollDisabled(false)
+                                ScrollView {
+                                    Text(recording.comments)
+                                        .multilineTextAlignment(.leading)
+                                        .font(.system(size: 20))
+                                }
+                                    
                             }
                             .padding(.top, 25)
                         }
