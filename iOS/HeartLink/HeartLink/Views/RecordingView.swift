@@ -14,7 +14,7 @@ struct RecordingView: View {
     @State var recordingDuration: Int8 = 15
     @State var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     @ObservedObject var bluetoothManager: BluetoothManager
-    
+
     func toggleRecording() {
         let data = (startRecording ? "start" : "stop").data(using: .utf8)!
         guard let char = bluetoothManager.recordingCharacteristic else {
@@ -26,17 +26,17 @@ struct RecordingView: View {
 
     var body: some View {
         if bluetoothManager.isConnected {
-            ZStack{
-                VStack{
-                    Text(startRecording ? "Recording..." : "Ready to Record")    .font(.system(size: 42, weight: .bold))
+            ZStack {
+                VStack {
+                    Text(startRecording ? "Recording..." : "Ready to Record").font(.system(size: 42, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                         .frame(height: 100)
-                    
+
                     Text(countdown <= 0 ? " " : "Starts in: \(countdown)")
                         .font(.system(size: 34, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .center)
                         .frame(height: 400, alignment: .top)
-                    
+
                     Button(action: {
                         recordingDuration = 15
                         if startRecording {
@@ -47,8 +47,7 @@ struct RecordingView: View {
                             startRecording = true
                             countdown = 3
                         }
-                    })
-                    {
+                    }) {
                         if !startRecording { // ready to record page
                             Image(systemName: "record.circle.fill")
                                 .resizable()
@@ -64,9 +63,9 @@ struct RecordingView: View {
                         }
                     }
                 }
-                .onReceive(timer) { time in // decrement timer every second
+                .onReceive(timer) { _ in // decrement timer every second
                     guard startRecording else { return }
-                    
+
                     if countdown > 0 {
                         countdown -= 1
                         if countdown == 0 {
