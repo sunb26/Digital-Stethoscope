@@ -39,7 +39,6 @@
 		B5D84AD12CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
 				ViewModel/DisplayRecording.swift,
 				ViewModel/UserLogin.swift,
@@ -55,7 +54,6 @@
 		B5D84AD22CD15658000459A3 /* Exceptions for "HeartLink" folder in "HeartLinkUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ViewModel/AudioConstructor.swift,
 				ViewModel/BluetoothManager.swift,
 				ViewModel/DisplayRecording.swift,
 				ViewModel/UserLogin.swift,
