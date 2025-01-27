@@ -27,12 +27,13 @@ struct RecLogView: View {
                         .font(.title).fontWeight(.bold)
                         .foregroundColor(.black)
                     Text("ID: \(recording.id)")
-                    if recording.viewed {
+                    if recording.viewStatus == "viewed" {
                         VStack(alignment: .leading) {
                             HStack {
                                 Text("View Status:")
                                 Text("Viewed")
                                     .foregroundStyle(.green)
+                                    .bold()
                             }
                             VStack(alignment: .leading) {
                                 Text("Comments: ")
@@ -46,11 +47,56 @@ struct RecLogView: View {
                             }
                             .padding(.top, 25)
                         }
+                    } else if recording.viewStatus == "notSubmitted" {
+                        VStack(alignment: .leading) {
+                            HStack {
+                                Text("View Status:")
+                                Text("Not Submitted")
+                                    .foregroundStyle(.red)
+                                    .bold()
+                            }
+                            .padding(.bottom, 20)
+
+                            HStack {
+                                Button("Submit", action: {
+                                    Task {
+                                        do {
+                                            let submission = RecordingSubmission(recordingId: recording.id, url: recording.fileURL)
+                                            try await submit(submission: submission)
+                                            recording.viewStatus = "submitted"
+                                        } catch {
+                                            print("error submitting recording: \(error)")
+                                        }
+                                    }
+                                })
+                                .buttonStyle(.bordered)
+                                Spacer()
+                                Button("Delete", role: .destructive, action: {
+                                    Task {
+                                        do {
+                                            try await delete(recordingId: recording.id)
+                                            path.removeLast(path.count)
+                                        } catch {
+                                            print("error deleting record: \(error)")
+                                        }
+                                    }
+                                })
+                                .buttonStyle(.bordered)
+                            }
+                        }
+                    } else if recording.viewStatus == "submitted" {
+                        HStack {
+                            Text("View Status:")
+                            Text("Submitted - Under Review")
+                                .foregroundStyle(.yellow)
+                                .bold()
+                        }
                     } else {
                         HStack {
                             Text("View Status:")
-                            Text("Not Viewed")
-                                .foregroundStyle(.red)
+                            Text("Error")
+                                .foregroundStyle(.yellow)
+                                .bold()
                         }
                     }
                 }
@@ -161,6 +207,6 @@ struct RecLogView: View {
 
 #Preview {
     @Previewable @State var path: [PageActions] = [.recording]
-    @Previewable @State var record = RecordingData(id: 0, date: "2025-01-01", viewed: true, comments: "Test", fileURL: "gs://heartlink-6fee0.firebasestorage.app/recordings/chillin39-20915.wav")
+    @Previewable @State var record = RecordingData(id: 0, date: "2025-01-01", viewStatus: "notSubmitted", comments: "Test", fileURL: "gs://heartlink-6fee0.firebasestorage.app/recordings/chillin39-20915.wav")
     RecLogView(path: $path, recording: $record)
 }

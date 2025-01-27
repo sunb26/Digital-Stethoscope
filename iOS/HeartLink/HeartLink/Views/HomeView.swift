@@ -75,14 +75,14 @@ struct HomeView: View {
                                         recordingData = try await getRecording(recordingId: recording.id)
                                         print(recordingData)
                                         path.append(.recording)
-                                    } catch GetRecordingError.invalidURL {
-                                        print("GetRecordingDataError: invalid URL")
-                                    } catch GetRecordingError.serverError {
-                                        print("GetRecordingDataError: internal server error")
-                                    } catch GetRecordingError.invalidData {
-                                        print("GetRecordingDataError: server returned invalid data")
+                                    } catch RecordingError.invalidURL {
+                                        print("RecordingDataError: invalid URL")
+                                    } catch RecordingError.serverError {
+                                        print("RecordingDataError: internal server error")
+                                    } catch RecordingError.invalidData {
+                                        print("RecordingDataError: server returned invalid data")
                                     } catch {
-                                        print("GetRecordingDataError: An unexpected error occurred")
+                                        print("RecordingDataError: An unexpected error occurred")
                                     }
                                 }
                             }) {
