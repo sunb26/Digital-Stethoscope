@@ -18,6 +18,8 @@ struct RecLogView: View {
     @State private var duration: Double = 0
     @State private var currentTime: Double = 0
     @State private var timer: Timer?
+    @State private var confirmSubmit: Bool = false
+    @State private var confirmDelete: Bool = false
 
     var body: some View {
         VStack {
@@ -59,29 +61,43 @@ struct RecLogView: View {
 
                             HStack {
                                 Button("Submit", action: {
-                                    Task {
-                                        do {
-                                            let submission = RecordingSubmission(recordingId: recording.id, url: recording.fileURL)
-                                            try await submit(submission: submission)
-                                            recording.viewStatus = "submitted"
-                                        } catch {
-                                            print("error submitting recording: \(error)")
-                                        }
-                                    }
+                                    self.confirmSubmit = true
                                 })
                                 .buttonStyle(.bordered)
+                                .confirmationDialog("Are you sure you want to submit?",
+                                                    isPresented: $confirmSubmit,
+                                                    titleVisibility: .visible) {
+                                    Button("Submit", action: {
+                                        Task {
+                                            do {
+                                                let submission = RecordingSubmission(recordingId: recording.id, url: recording.fileURL)
+                                                try await submit(submission: submission)
+                                                recording.viewStatus = "submitted"
+                                            } catch {
+                                                print("error submitting recording: \(error)")
+                                            }
+                                        }
+                                    })
+                                }
                                 Spacer()
                                 Button("Delete", role: .destructive, action: {
-                                    Task {
-                                        do {
-                                            try await delete(recordingId: recording.id)
-                                            path.removeLast(path.count)
-                                        } catch {
-                                            print("error deleting record: \(error)")
-                                        }
-                                    }
+                                    self.confirmDelete = true
                                 })
                                 .buttonStyle(.bordered)
+                                .confirmationDialog("Are you sure? This action cannot be undone.",
+                                                    isPresented: $confirmDelete,
+                                                    titleVisibility: .visible) {
+                                    Button("Delete Recording", role: .destructive) {
+                                        Task {
+                                            do {
+                                                try await delete(recordingId: recording.id)
+                                                path.removeLast(path.count)
+                                            } catch {
+                                                print("error deleting record: \(error)")
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else if recording.viewStatus == "submitted" {
