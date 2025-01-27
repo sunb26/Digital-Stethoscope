@@ -14,6 +14,16 @@ struct SendWifiCreds: View {
 
     var body: some View {
         VStack {
+            HStack {
+                Text("Connect to WiFi")
+                    .font(.title)
+                    .bold()
+                Image(systemName: "wifi")
+                    .resizable()
+                    .frame(width: 22, height: 22)
+            }
+            .padding(.bottom, 40)
+
             TextField("Network Name", text: $network)
                 .padding(20)
                 .background(Color.white)
@@ -45,11 +55,13 @@ struct SendWifiCreds: View {
     func sendWifiCreds(network: String, password: String) {
         let nameLength = String(network.count)
         let data = (nameLength + "&" + network + password).data(using: .utf8)!
-        guard let char = bluetoothManager.wifiCredsCharacteristic else {
+        guard var char = bluetoothManager.wifiCredsCharacteristic else {
             print("Could not find wifiCredsCharacteristic characteristic")
             return
         }
         bluetoothManager.mcuPeripheral?.writeValue(data, for: char, type: .withResponse)
+        
+        
     }
 }
 
