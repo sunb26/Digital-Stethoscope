@@ -16,12 +16,17 @@ struct RecordingWidget: Identifiable, Codable {
 struct RecordingData: Codable {
     let id: UInt64
     let date: String
-    let viewed: Bool
+    var viewStatus: String
     let comments: String
     let fileURL: String
 }
 
-enum GetRecordingError: Error {
+struct RecordingSubmission: Codable {
+    let recordingId: UInt64
+    let url: String
+}
+
+enum RecordingError: Error {
     case invalidURL
     case invalidData
     case recordNotFound

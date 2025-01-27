@@ -40,7 +40,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ViewModel/BluetoothManager.swift,
-				ViewModel/DisplayRecording.swift,
+				ViewModel/RecordingActions.swift,
 				ViewModel/UserLogin.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
@@ -55,7 +55,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ViewModel/BluetoothManager.swift,
-				ViewModel/DisplayRecording.swift,
+				ViewModel/RecordingActions.swift,
 				ViewModel/UserLogin.swift,
 				Views/BluetoothView.swift,
 				Views/HomeView.swift,
