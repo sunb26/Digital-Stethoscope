@@ -22,13 +22,10 @@ struct LoginView: View {
 
             VStack {
                 HStack {
-                    Image(systemName: "stethoscope")
-                        .font(.system(size: 40))
-                        .foregroundColor(.black)
-
-                    Text("HeartLink")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.black)
+                    Image("logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
                 }
                 .padding(.bottom, 50)
 
@@ -67,7 +64,7 @@ struct LoginView: View {
                             Text("Login")
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(Color.blue)
+                                .background(Color.pink)
                                 .foregroundColor(.white)
                                 .cornerRadius(8)
                                 .shadow(color: .gray, radius: 5, x: 0, y: 2)

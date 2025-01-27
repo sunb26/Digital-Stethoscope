@@ -4,6 +4,7 @@
 - add submit and delete buttons for recordings
 - separate recording history list from User model
 - call recording history list endpoint upon appearance of homepage
+- update logo
 
 ## 1.7.1 (2025-01-22)
 - fix bug where audio continues to play if not paused before returning to homepage
