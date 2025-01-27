@@ -59,7 +59,7 @@ func submit(submission: RecordingSubmission) async throws {
         print("submitted successfully")
         return
     } catch {
-        print("faild to encode submission")
+        print("failed to encode submission")
     }
 }
 

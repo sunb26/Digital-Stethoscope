@@ -13,6 +13,7 @@ struct HomeView: View {
     @Binding var recordingData: RecordingData
     @State var btPopUp: Bool = false
     @State var recordingPopUp: Bool = false
+    @State private var recordingsList: RecordingsList = RecordingsList(widgets: [])
     @ObservedObject var bluetoothManager: BluetoothManager
 
     var body: some View {
@@ -55,7 +56,7 @@ struct HomeView: View {
                         .fontWeight(.bold)
                         .padding(.horizontal)
 
-                    List(patient.widgets) { recording in
+                    List(recordingsList.widgets) { recording in
                         HStack(spacing: 16) {
                             Image(systemName: "waveform")
                                 .resizable()
@@ -100,6 +101,37 @@ struct HomeView: View {
             BluetoothView(bluetoothManager: bluetoothManager)
         }
         .preferredColorScheme(.light)
+        .onAppear(perform: listRecordings)
+    }
+
+    func listRecordings() {
+        guard let url = URL(string: "https://heartlink.free.beeceptor.com/listRecordings") else {
+            print("invalid URL")
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print("list recordings: error listing recordings")
+                return
+            }
+            guard let data = data else {
+                print("list recordings: did not receive data")
+                return
+            }
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                print("list recordings: request failed:")
+                return
+            }
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                recordingsList = try decoder.decode(RecordingsList.self, from: data)
+            } catch {
+                print("list recordings: error decoding")
+            }
+        }.resume()
     }
 }
 

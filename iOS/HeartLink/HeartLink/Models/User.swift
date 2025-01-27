@@ -11,7 +11,6 @@ struct User: Decodable {
     let email: String
     let patientId: UInt64
     let physicianId: UInt64
-    let widgets: [RecordingWidget]
 }
 
 enum LoginError: Error {

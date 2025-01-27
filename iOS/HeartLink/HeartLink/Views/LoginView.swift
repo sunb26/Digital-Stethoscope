@@ -117,7 +117,7 @@ struct ResetPasswordView: View {
 
 #Preview {
     @Previewable @State var path: [PageActions] = [.login]
-    @Previewable @State var patient: User = User(email: "test", patientId: 1, physicianId: 1, widgets: [])
+    @Previewable @State var patient: User = User(email: "test", patientId: 1, physicianId: 1)
 
     LoginView(path: $path, patient: $patient)
 }

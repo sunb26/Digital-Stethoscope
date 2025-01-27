@@ -8,6 +8,10 @@
 import Foundation
 
 // Define the Data Model
+struct RecordingsList: Codable {
+    var widgets: [RecordingWidget]
+}
+
 struct RecordingWidget: Identifiable, Codable {
     let id: UInt64
     let date: String
