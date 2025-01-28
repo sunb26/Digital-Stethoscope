@@ -18,8 +18,8 @@ struct MainNavView: View {
     @State var path: [PageActions] = [.login]
     @StateObject var btmanager = BluetoothManager()
     @State var patient: User = User(email: "", patientId: 0, physicianId: 0)
-    @State var recordingData: RecordingData = RecordingData(id: 0, date: "0000-00-00", viewStatus: "notSubmitted" , comments: "", fileURL: "")
-    
+    @State var recordingData: RecordingData = RecordingData(id: 0, date: "0000-00-00", viewStatus: "notSubmitted", comments: "", fileURL: "")
+
     var body: some View {
         NavigationStack(path: $path) {
             TabView {
@@ -27,7 +27,7 @@ struct MainNavView: View {
                     HomeView(path: $path, patient: $patient, recordingData: $recordingData, bluetoothManager: btmanager)
                 }
                 Tab("Record", systemImage: "record.circle.fill") {
-                    RecordingView(bluetoothManager: btmanager)
+                    RecordingView(bluetoothManager: btmanager, patient: $patient)
                 }
             }
             .tabViewStyle(.sidebarAdaptable)

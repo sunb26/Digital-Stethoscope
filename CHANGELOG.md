@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.10.1 (2025-01-28)
+- add patient id sending to MCU across BLE (sent on each recording)
+- add BLE service to app to subscribe to wifi connection status on MCU
+
 ## 1.9.1 (2025-01-27)
 - fix logo colour
 

@@ -19,13 +19,13 @@ struct BluetoothView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
-            
+
             Text(bluetoothManager.isBluetoothEnabled ? "Select a device to connect" : "Bluetooth is disabled")
                 .padding()
                 .font(.subheadline)
                 .foregroundColor(.gray)
-            
-            List(bluetoothManager.discoveredPeripherals.filter { $0.name != "Unknown"}) { peripheral in
+
+            List(bluetoothManager.discoveredPeripherals) { peripheral in
                 HStack {
                     Text(peripheral.name)
                     Spacer()
@@ -48,14 +48,13 @@ struct BluetoothView: View {
                             Text("Connecting")
                                 .foregroundColor(.red)
                         } else {
-                            Text ("Connect")
+                            Text("Connect")
                                 .foregroundColor(.blue)
                         }
                     }
                 }
-
             }
-                
+
             Button(action: {
                 dismiss()
             }) {

@@ -14,6 +14,7 @@ struct RecordingView: View {
     @State var recordingDuration: Int8 = 15
     @State var timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     @ObservedObject var bluetoothManager: BluetoothManager
+    @Binding var patient: User
 
     func toggleRecording() {
         let data = (startRecording ? "start" : "stop").data(using: .utf8)!
@@ -25,7 +26,7 @@ struct RecordingView: View {
     }
 
     var body: some View {
-        if bluetoothManager.isConnected {
+        if bluetoothManager.isConnected && bluetoothManager.wifiConnStatus == "connected" {
             ZStack {
                 VStack {
                     Text(startRecording ? "Recording..." : "Ready to Record").font(.system(size: 42, weight: .bold))
@@ -70,6 +71,13 @@ struct RecordingView: View {
                         countdown -= 1
                         if countdown == 0 {
                             toggleRecording()
+
+                            guard let char = bluetoothManager.patientInfoCharacteristic else {
+                                print("Could not find patientInfo characteristic")
+                                return
+                            }
+                            let patId = "\(patient.patientId)".data(using: .utf8)!
+                            bluetoothManager.mcuPeripheral?.writeValue(patId, for: char, type: .withResponse)
                         }
                     } else {
                         recordingDuration -= 1
@@ -84,15 +92,28 @@ struct RecordingView: View {
                 }
             }
         } else {
-            Text("Please connect to the Bluetooth Device before recording (found in the main menu)")
-                .font(.title3)
-                .padding(10)
-                .multilineTextAlignment(.center)
+            if !bluetoothManager.isConnected && bluetoothManager.wifiConnStatus != "connected" {
+                Text("Please connect to the Bluetooth Device and Wifi before recording (found in the main menu)")
+                    .font(.title3)
+                    .padding(10)
+                    .multilineTextAlignment(.center)
+            } else if !bluetoothManager.isConnected {
+                Text("Please connect to the Bluetooth Device before recording (found in the main menu)")
+                    .font(.title3)
+                    .padding(10)
+                    .multilineTextAlignment(.center)
+            } else {
+                Text("Please connect device to Wifi before recording (found in the main menu)")
+                    .font(.title3)
+                    .padding(10)
+                    .multilineTextAlignment(.center)
+            }
         }
     }
 }
 
 #Preview {
     @Previewable var bt = BluetoothManager()
-    RecordingView(bluetoothManager: bt)
+    @Previewable @State var patient: User = User(email: "test", patientId: 1, physicianId: 1)
+    RecordingView(bluetoothManager: bt, patient: $patient)
 }
