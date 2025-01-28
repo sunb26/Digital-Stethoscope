@@ -1,9 +1,12 @@
 # CHANGELOG
 
-## 1.7.3 (2025-01-27)
+## 1.9.1 (2025-01-27)
+- fix logo colour
+
+## 1.9.0 (2025-01-27)
 - add confirmation dialog to app before submitting or deleting a recording
 
-## 1.7.2 (2025-01-26)
+## 1.8.0 (2025-01-26)
 - add submit and delete buttons for recordings
 - separate recording history list from User model
 - call recording history list endpoint upon appearance of homepage
