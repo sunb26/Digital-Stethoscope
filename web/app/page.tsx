@@ -1,6 +1,7 @@
 // import Image from "next/image";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
+import { GettingStarted } from "@/components/getting_started";
 
 export default function Home() {
   return (
@@ -11,6 +12,9 @@ export default function Home() {
         </section>
         <section>
           <About />
+        </section>
+        <section>
+          <GettingStarted />
         </section>
       </div>
     </main>
