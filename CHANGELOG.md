@@ -2,6 +2,10 @@
 
 ## 1.11.0 (2025-02-19)
 - add initial server code in Golang (runs locally only)
+- add website landing page
+  - header
+  - hero image
+  - about section
 
 ## 1.10.1 (2025-01-28)
 - add patient id sending to MCU across BLE (sent on each recording)
