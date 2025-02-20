@@ -18,7 +18,7 @@ export function Header() {
 
   return (
     <header className="text-black p-4 text-center top-0 left-0 right-0">
-      <nav className="container mx-auto flex justify-between items-center">
+      <nav className="container mx-auto flex justify-between items-center font-[Syne]">
         <div className="font-bold cursor-pointer">
           {/* biome-ignore lint/a11y/useValidAnchor: */}
           <a onClick={() => handleNavigation("#home")}>
