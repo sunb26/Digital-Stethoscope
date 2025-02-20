@@ -6,6 +6,7 @@
   - header
   - hero image
   - about section
+  - getting started section
 
 ## 1.10.1 (2025-01-28)
 - add patient id sending to MCU across BLE (sent on each recording)
