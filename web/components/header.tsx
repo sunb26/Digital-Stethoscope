@@ -1,19 +1,20 @@
 "use client";
 
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { useRouter, usePathname } from "next/navigation";
 
 export function Header() {
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pathName = usePathname();
 
   const handleNavigation = (sectionId: string) => {
-    if (pathName === "/") {
-      // Scroll to the section with the section ID
-      document.location.href = `${sectionId}`;
-    } else {
-      // Navigate to the homepage with the section ID as a hash
-      router.push(`/${sectionId}`);
-    }
+    // if (pathName === "/") {
+    //   document.location.href = `${sectionId}`;
+    // } else {
+    //   router.push(`/${sectionId}`);
+    // }
+    router.push(`/${sectionId}`);
   };
 
   return (
@@ -44,23 +45,39 @@ export function Header() {
               About
             </a>
           </li>
-          <li>
-            <a
-              className="hover:underline cursor-pointer text-dark-blue"
-              // biome-ignore lint/a11y/useValidAnchor:
-              onClick={() => handleNavigation("#oursolution")}
-            >
-              Our Solution
-            </a>
-          </li>
-          <li>
-            <button
-              type="button"
-              className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            >
-              Login/Sign Up
-            </button>
-          </li>
+          <SignedOut>
+            <li>
+              <SignInButton>
+                <button
+                  type="button"
+                  className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-3 py-2 text-center me-2 mb-2"
+                >
+                  Login/Sign Up
+                </button>
+              </SignInButton>
+            </li>
+          </SignedOut>
+          <SignedIn>
+            <li>
+              <a
+                className="hover:underline cursor-pointer text-dark-blue"
+                // biome-ignore lint/a11y/useValidAnchor:
+                onClick={() => handleNavigation("#about")}
+              >
+                My Patients
+              </a>
+            </li>
+            <li>
+              <UserButton
+                appearance={{
+                  elements: {
+                    formButtonPrimary:
+                      "border-2 border-red-500 bg-white text-red-500 hover:bg-red-500 hover:text-white",
+                  },
+                }}
+              />
+            </li>
+          </SignedIn>
         </ul>
       </nav>
     </header>
