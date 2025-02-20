@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.11.0 (2025-02-19)
+- add initial server code in Golang (runs locally only)
+
 ## 1.10.1 (2025-01-28)
 - add patient id sending to MCU across BLE (sent on each recording)
 - add BLE service to app to subscribe to wifi connection status on MCU
