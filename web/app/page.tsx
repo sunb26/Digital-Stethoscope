@@ -7,10 +7,10 @@ export default function Home() {
   return (
     <main>
       <div className="flex flex-col justify-center justify-items-center gap-y-10">
-        <section className="pt-40">
+        <section id="/" className="pt-40">
           <Hero />
         </section>
-        <section>
+        <section id="about">
           <About />
         </section>
         <section>
