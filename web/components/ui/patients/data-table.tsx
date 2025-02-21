@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
+import { useRouter } from "next/navigation"
 
 import * as React from "react"
 
@@ -30,10 +31,11 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends {id: number}, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter();
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [globalFilter, setGlobalFilter] = React.useState("");
 
@@ -90,6 +92,8 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => router.push(`/patient/${row.original.id}`)}
+                  className="cursor-pointer hover:bg-gray-100 transition"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
