@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export const Hero = () => {
+export function Hero() {
   return (
     <section>
       <div className='flex flex-row justify-center justify-items-center'>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export const About = () => {
+export function About() {
   return (
     <div className="bg-off-white p-20">
       <div className="flex flex-col bg-[#C4C4C4] py-20 items-center gap-6">
