@@ -60,7 +60,7 @@ export function Header() {
               <a
                 className="hover:underline cursor-pointer text-dark-blue"
                 // biome-ignore lint/a11y/useValidAnchor:
-                onClick={() => handleNavigation(`/${physicianId}`)}
+                onClick={() => handleNavigation(`/user/${physicianId}`)}
               >
                 My Patients
               </a>
