@@ -1,9 +1,15 @@
 # CHANGELOG
 
+## 1.13.0 (2025-02-21)
+- website deployed on Vercel
+
 ## 1.12.0 (2025-02-21)
 - add patient list page
   - protect URL from un-authenticated users
   - data is currently mocked (hardcoded)
+  - column sorting
+  - global filtering
+  - pagination
 
 ## 1.11.0 (2025-02-19)
 - add initial server code in Golang (runs locally only)
