@@ -1,6 +1,6 @@
 "use client";
 
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { useRouter, usePathname } from "next/navigation";
 
 export function Header() {
@@ -8,8 +8,11 @@ export function Header() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pathName = usePathname();
 
+  const { user } = useUser();
+  const physicianId = user?.id;
+  
   const handleNavigation = (sectionId: string) => {
-    router.push(`/${sectionId}`);
+    router.push(`${sectionId}`);
   };
 
   return (
@@ -17,7 +20,7 @@ export function Header() {
       <nav className="container mx-auto flex justify-between items-center font-[Syne]">
         <div className="font-bold cursor-pointer">
           {/* biome-ignore lint/a11y/useValidAnchor: */}
-          <a onClick={() => handleNavigation("#home")}>
+          <a onClick={() => handleNavigation("/")}>
             <h1 className="text-2xl">HeartLink</h1>
           </a>
         </div>
@@ -57,7 +60,7 @@ export function Header() {
               <a
                 className="hover:underline cursor-pointer text-dark-blue"
                 // biome-ignore lint/a11y/useValidAnchor:
-                onClick={() => handleNavigation("#about")}
+                onClick={() => handleNavigation(`/${physicianId}`)}
               >
                 My Patients
               </a>
