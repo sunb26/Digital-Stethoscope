@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"
-import { useRouter } from "next/navigation"
+import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
-import * as React from "react"
+import * as React from "react";
 
 import {
   type ColumnDef,
@@ -15,7 +15,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -31,12 +31,12 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData extends {id: number}, TValue>({
+export function DataTable<TData extends { id: number }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
 
   const table = useReactTable({
@@ -47,13 +47,12 @@ export function DataTable<TData extends {id: number}, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    globalFilterFn: 'includesString',
+    globalFilterFn: "includesString",
     state: {
       sorting,
       globalFilter,
     },
-    onGlobalFilterChange: setGlobalFilter
-
+    onGlobalFilterChange: setGlobalFilter,
   });
 
   return (
@@ -61,7 +60,7 @@ export function DataTable<TData extends {id: number}, TValue>({
       <div className="flex items-center py-4">
         <Input
           value={globalFilter ?? ""}
-          onChange={e => table.setGlobalFilter(String(e.target.value))}
+          onChange={(e) => table.setGlobalFilter(String(e.target.value))}
           placeholder="Search..."
           className="max-w-sm"
         />
@@ -95,8 +94,16 @@ export function DataTable<TData extends {id: number}, TValue>({
                   onClick={() => router.push(`/patient/${row.original.id}`)}
                   className="cursor-pointer hover:bg-gray-100 transition"
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                  {row.getVisibleCells().map((cell, cellIndex, allCells) => (
+                    <TableCell
+                      key={cell.id}
+                      onClick={(e) => {
+                        // Stop row click navigation from firing if it's the last cell (i.e the Actions cell)
+                        if (cellIndex === allCells.length - 1) {
+                          e.stopPropagation();
+                        }
+                      }}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
