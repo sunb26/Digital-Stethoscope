@@ -9,16 +9,11 @@ export function Header() {
   const pathName = usePathname();
 
   const handleNavigation = (sectionId: string) => {
-    // if (pathName === "/") {
-    //   document.location.href = `${sectionId}`;
-    // } else {
-    //   router.push(`/${sectionId}`);
-    // }
     router.push(`/${sectionId}`);
   };
 
   return (
-    <header className="text-black p-4 text-center top-0 left-0 right-0">
+    <header className="text-black p-4 text-center top-0 left-0 right-0 border-b-2">
       <nav className="container mx-auto flex justify-between items-center font-[Syne]">
         <div className="font-bold cursor-pointer">
           {/* biome-ignore lint/a11y/useValidAnchor: */}
