@@ -86,7 +86,7 @@ async function getData(): Promise<Patient[]> {
   ];
 }
 
-export default async function DemoPage() {
+export default async function PhysicianPage() {
   const physician = await currentUser();
   const data = await getData();
 

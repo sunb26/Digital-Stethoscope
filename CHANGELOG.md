@@ -10,6 +10,10 @@
   - column sorting
   - global filtering
   - pagination
+- add patient page
+  - recording table
+  - placeholder patient info
+  - placeholder patient profile avatar
 
 ## 1.11.0 (2025-02-19)
 - add initial server code in Golang (runs locally only)
