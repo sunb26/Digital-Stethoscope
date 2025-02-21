@@ -38,7 +38,7 @@ export function Header() {
             <a
               className="hover:underline cursor-pointer text-dark-blue"
               // biome-ignore lint/a11y/useValidAnchor:
-              onClick={() => handleNavigation("#about")}
+              onClick={() => handleNavigation("/#about")}
             >
               About
             </a>
