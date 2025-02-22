@@ -9,8 +9,9 @@ import (
 	"heartlinkServer/endpoint1Pkg" // import the endpoint1Pkg package from within the heartlinkServer project
 	"heartlinkServer/endpoint2Pkg" // import the endpoint2Pkg package from within the heartlinkServer project
 	"log"                          // "log" package is used to log errors
-	"net"                          // package is used to create/connect to a server
-	"net/http"                     // "net/http" package provides HTTP client/server implementations
+
+	// package is used to create/connect to a server
+	"net/http" // "net/http" package provides HTTP client/server implementations
 )
 
 const keyServerAddr = "serverAddr" // const string used as key
@@ -29,14 +30,14 @@ func main() {
 	ctx := context.Background()
 
 	server := &http.Server{
-		// Addr:    ":8080",
-		// Addr:    "127.0.0.1:8080",
-		Addr:    "192.168.2.10:8080", // my computer's IPv4 Address
+		Addr: ":8080",
+		// Addr: "127.0.0.1:8080",
 		Handler: mux,
-		BaseContext: func(l net.Listener) context.Context {
-			ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
-			return ctx
-		},
+		// BaseContext: func(l net.Listener) context.Context {
+		// 	ctx = context.WithValue(ctx, keyServerAddr, l.Addr().String())
+		// 	return ctx
+		// },
+		// BaseContext: ,
 		// Add in a ReadTimeout, WriteTimeout, and IdleTimeout
 	}
 
