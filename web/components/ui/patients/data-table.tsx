@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { RegisterPatientForm } from "@/components/ui/patients/form";
 import { useRouter } from "next/navigation";
 
 import * as React from "react";
@@ -25,6 +26,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -64,6 +74,27 @@ export function DataTable<TData extends { id: number }, TValue>({
           placeholder="Search..."
           className="max-w-sm"
         />
+        <div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                Add Patient +
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-h-[90vh] overflow-hidden">
+              <DialogHeader>
+                <DialogTitle>Register a New Patient to HeartLink</DialogTitle>
+                <DialogDescription>
+                  User will receieve an email to confirm registration. Patient
+                  status will be updated on the platform once verified.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="max-h-full overflow-y-auto p-2">
+                <RegisterPatientForm />
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
