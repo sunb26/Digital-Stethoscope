@@ -81,7 +81,7 @@ export function DataTable<TData extends { id: number }, TValue>({
                 Add Patient +
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[90vh] overflow-hidden">
+            <DialogContent className="h-fit max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Register a New Patient to HeartLink</DialogTitle>
                 <DialogDescription>
@@ -89,7 +89,7 @@ export function DataTable<TData extends { id: number }, TValue>({
                   status will be updated on the platform once verified.
                 </DialogDescription>
               </DialogHeader>
-              <div className="max-h-full overflow-y-auto p-2">
+              <div>
                 <RegisterPatientForm />
               </div>
             </DialogContent>

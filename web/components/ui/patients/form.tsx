@@ -29,13 +29,13 @@ const formSchema = z.object({
     required_error: "Date of birth is required",
     invalid_type_error: "Invalid date format",
   }),
-  sex: z.enum(["M", "F", "NB", "U"], {
+  sex: z.enum(["M", "F", "NB", ""], {
     message: "Please enter 'M', 'F', or 'NB'.",
   }),
-  height: z.number().min(0, {
+  height: z.coerce.number().min(0, {
     message: "Please enter a valid height.",
   }),
-  weight: z.number().min(0, {
+  weight: z.coerce.number().min(0, {
     message: "Please enter a valid weight.",
   }),
 });
@@ -48,6 +48,9 @@ export function RegisterPatientForm() {
       firstName: "",
       lastName: "",
       email: "",
+      sex: "",
+      height: 0,
+      weight: 0,
     },
   });
 
@@ -127,7 +130,7 @@ export function RegisterPatientForm() {
             <FormItem>
               <FormLabel>Sex</FormLabel>
               <FormControl>
-                <Input placeholder="M or F or NB" {...field} />
+                <Input placeholder="M or F or NB" {...field.value.toUpperCase} />
               </FormControl>
               <FormMessage />
             </FormItem>
