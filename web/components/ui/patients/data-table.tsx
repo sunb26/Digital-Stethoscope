@@ -77,9 +77,11 @@ export function DataTable<TData extends { id: number }, TValue>({
         <div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" size="sm">
-                Add Patient +
-              </Button>
+              <div className="pl-6">
+                <Button variant="outline" size="sm">
+                  Add Patient +
+                </Button>
+              </div>
             </DialogTrigger>
             <DialogContent className="h-fit max-h-[90vh] overflow-y-auto">
               <DialogHeader>
