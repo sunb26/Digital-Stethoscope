@@ -154,7 +154,7 @@ export function RegisterPatientForm() {
           name="weight"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Weight</FormLabel>
+              <FormLabel>Weight (lbs)</FormLabel>
               <FormControl>
                 <Input placeholder="Weight" {...field} />
               </FormControl>
