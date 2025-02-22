@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 1.14.0 (2025-02-21)
+- server now hosted on google cloud via cloud run 
+
 ## 1.13.0 (2025-02-21)
 - website deployed on Vercel
 
